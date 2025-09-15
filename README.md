@@ -1,24 +1,21 @@
 # Ollama Parameter Tester
 
-This repository contains scripts for testing Ollama model parameters.
+A minimal suite for experimenting with Ollama model parameters.
 
 ## Scripts
 
-- **ollama_modelfile.sh**: Generates a Modelfile with custom `temperature`, `top_p`, `top_k`, model name, and a system message, creates the model, shows the Modelfile, and runs the model with the message.
-- **test_ollama.sh**: Runs a suite of tests that invoke `ollama_modelfile.sh` with various combinations of `temperature`, `top_p`, and `top_k` while keeping the model name and message constant.
+- **ollama_modelfile.sh** – builds a temporary Modelfile using supplied `temperature`, `top_p`, `top_k`, model name and a system message, creates the model, and runs it.
+- **test_ollama.sh** – runs eight silent test cases (varying `temperature`, `top_p`, `top_k`), saves each response to a temporary file, and shows a colored `diff` between each consecutive pair. After the run it cleans up all temporary files.
 
-## Usage
+## Quick start
 
 ```bash
-# Make scripts executable
-chmod +x ollama_modelfile.sh test_ollama.sh
-
-# Run the test suite
-./test_ollama.sh
+chmod +x ollama_modelfile.sh test_ollama.sh   # make executable
+./test_ollama.sh                               # execute the test suite
 ```
 
-The test suite prints the parameters for each run, creates the model, and displays the model's response.
+The script prints only the parameter headers and the diffs, keeping the output concise.
 
 ## License
 
-This project is provided under the MIT License.
+MIT License.
