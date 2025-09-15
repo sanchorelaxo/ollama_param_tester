@@ -5,7 +5,7 @@ A minimal suite for experimenting with Ollama model parameters.
 ## Scripts
 
 - **ollama_modelfile.sh** – builds a temporary Modelfile using supplied `temperature`, `top_p`, `top_k`, model name and a system message, creates the model, and runs it.
-- **test_ollama.sh** – runs eight silent test cases (varying `temperature`, `top_p`, `top_k`), saves each response to a temporary file, and shows a colored `diff` between each consecutive pair. After the run it cleans up all temporary files.
+- **test_ollama.sh** – runs eight silent test cases (varying `temperature`, `top_p`, `top_k`), saves each response, shows a colored `diff` and numeric differences for word‑count and duplicate‑word counts between each pair, then cleans up.
 
 ## Quick start
 
