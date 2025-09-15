@@ -19,8 +19,13 @@ top_k="$3"
 model_name="$4"
 message="$5"
 
-# Create a temporary directory for the Modelfile
-workdir=$(mktemp -d)
+# Ensure a clean temporary directory for the Modelfile
+workdir="/tmp/ollama_modelfile_workdir"
+if [ -d "$workdir" ]; then
+  rm -rf "${workdir:?}"/*
+else
+  mkdir -p "$workdir"
+fi
 cd "$workdir"
 
 # Generate the Modelfile with the provided parameters.
@@ -35,7 +40,7 @@ EOF
 
 # Create the model using Ollama
 echo "Creating model '$model_name' with provided parameters..."
-ollama create "$model_name" < Modelfile
+ollama create "$model_name" < Modelfile || true
 
 # Show the Modelfile of the created model
 #echo "\n--- Modelfile for model '$model_name' ---"
@@ -44,10 +49,10 @@ ollama create "$model_name" < Modelfile
 # Query the model with the provided message
 
 echo "\n--- Response from model '$model_name' for message ---"
-echo "$message" | ollama run "$model_name"
+echo "$message" | ollama run "$model_name" || true
 
 # Clean up temporary directory
-cd -
-rm -rf "$workdir"
+cd - || true
+rm -rf "$workdir" || true
 
 echo "\nDone."
